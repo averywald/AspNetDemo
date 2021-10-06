@@ -5,12 +5,16 @@ export class FetchData extends Component {
 
   constructor(props) {
     super(props);
+
+    // use component's 'state' object for adding displayable data?
     this.state = { forecasts: [], loading: true };
 
-    fetch('api/SampleData/WeatherForecasts')
+    fetch('https://geo.api.gouv.fr/regions')
       .then(response => response.json())
       .then(data => {
-        this.setState({ forecasts: data, loading: false });
+        this.setState({
+          forecasts: data, loading: false
+        });
       });
   }
 
@@ -28,10 +32,8 @@ export class FetchData extends Component {
         <tbody>
           {forecasts.map(forecast =>
             <tr key={forecast.dateFormatted}>
-              <td>{forecast.dateFormatted}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
+              <td>{forecast.nom}</td>
+              <td>{forecast.code}</td>
             </tr>
           )}
         </tbody>
